@@ -140,8 +140,8 @@ exports.login = function(req, res){
  exports.dashboard = function(req, res, next){
  
     var user =  req.session.user,
-    userId = req.session.userId,
-    first_name = user.first_name;
+    userId = req.session.userId;
+    //first_name = user.first_name;
     
     if(userId == null){
     res.redirect("/home/login");

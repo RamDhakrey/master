@@ -1,0 +1,123 @@
+<html lang="en">
+<style type="text/css">
+
+    
+</style>
+    
+<%- include header %>
+    
+<div class="container">
+<div class="row">
+<!-- code start -->
+<div class="twPc-div">
+  <% if(current_profile =='blank'){ %>
+    <a href='/static/images/background.jpeg' class="twPc-bg twPc-block" style="background-image: url('/static/images/background.jpeg');"></a>
+  <% }else{ %>
+  <a href='/static/images/<%= current_cover %>' class="twPc-bg twPc-block" style="background-image: url('/static/images/<%= current_cover %>');"></a>
+  <% } %>  
+  <div>
+    <div class="twPc-button">
+            
+          <div>
+            <label for="image-icon-new">
+              <img src="/static/images/image-icon.png" style="height: 68px;" />
+            </label>
+             <button style="display:none" data-toggle="modal" data-target="#myModal" id="image-icon-new" class="image-icon-cover"></button>
+          </div>
+            
+            <!-- Twitter Button -->   
+    </div>
+    <% if(user.gender == 'male'){ %>
+    <% if(current_profile !='blank'){ %>
+      <a title="profile image" href='/static/images/<%= current_profile %>' class="twPc-avatarLink">
+        <img alt="profile image" src='/static/images/<%= current_profile %>' class="twPc-avatarImg">
+      </a>
+    <% }else{ %>  
+      <a title="profile image" href='/static/images/profile-male.png' class="twPc-avatarLink">
+        <img alt="profile image" src='/static/images/profile-male.png' class="twPc-avatarImg">
+      </a>
+    <% } %>
+    <div class="image-icon">
+      <label for="image-icon">
+        <img src="/static/images/image-icon.png" style="height: 25px;" />
+      </label>  
+      <button style="display:none" data-toggle="modal" data-target="#myModal" id="image-icon" class="image-icon-profile"></button>
+  
+    </div>      
+    <% }else{ %>
+    <% if(current_profile !='blank'){ %>
+      <a title="profile image" href='/static/images/<%= current_profile %>' class="twPc-avatarLink">
+        <img alt="profile image" src='/static/images/<%= current_profile %>' class="twPc-avatarImg">
+      </a>
+    <% }else{ %>  
+      <a title="profile image" href='/static/images/profile-female.jpg' class="twPc-avatarLink">
+        <img alt="profile image" src='/static/images/profile-female.jpg' class="twPc-avatarImg">
+      </a>
+    <% } %>
+    <div class="image-icon">
+      <label for="image-icon">
+        <img src="/static/images/image-icon.png" style="height: 25px;" />
+      </label> 
+      <button style="display:none" data-toggle="modal" data-target="#myModal" id="image-icon" class="image-icon-profile"></button>
+    </div> 
+    <% } %>
+    
+
+    <div class="twPc-divUser">
+      <div class="twPc-divName">
+        <a href="#"><%= user.first_name%> <%= user.last_name%></a>
+      </div>
+      <span>
+        <a href="#"><%= user.email%></a>
+      </span>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="container">
+  
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->/home/dashboard
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="text-align: center">Upload Image Here</h4>
+        </div>
+        <div class="modal-body">
+          
+          <form method="post" role="form" action="/upload-image" enctype="multipart/form-data">
+              <input type="hidden" name="image_field" value="album" id="image_type_input">
+              <input type='file' onchange="readURL(this);" name="image_uploaded" />
+              <button id="btn-signup" type="submit" class="btn btn-info" style="margin-left: 20px;">Upload</button>
+                    
+          </form>
+           <span id="pre_image" style="display: none;padding-left: 30%;"><img id="show_image" src="http://placehold.it/180" alt="your image" /></span>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<script type="text/javascript">
+  $('.image-icon-profile').on('click',function(){
+    $('#image_type_input').val('profile-img');
+    console.log('p');
+  });
+</script>
+<script type="text/javascript">
+  $('.image-icon-cover').on('click',function(){
+    $('#image_type_input').val('cover-img');
+    console.log('c');
+  });
+</script>
+
+<%- include footer %>

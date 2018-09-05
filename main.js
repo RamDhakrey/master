@@ -58,8 +58,8 @@ app.get('', user.logout);//
 app.get('/home/addfriend', admin.addfriend);//call for add user in admin
 app.post('/home/addfriend', admin.addfriend);//call for add user in admin
 
-app.get('/home/editfriend/:id', admin.editfriend);
-app.post('/home/editfriend/:id', admin.editfriend);
+app.get('/home/addfriend/:id', admin.addfriend);
+app.post('/home/addfriend/:id', admin.addfriend);
 app.get('/home/removefriend/:id', admin.removefriend);
 app.post('/home/removefriend/:id', admin.removefriend);
 app.post('/upload-image', user.upload_image);

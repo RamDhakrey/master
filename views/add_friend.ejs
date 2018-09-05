@@ -21,50 +21,80 @@
                 <div class="alert alert-success col-sm-12"><%= message %></div>
             <% } %>
 
+
+            <% if (data.length > 0) {
+                var fname  = data[0].first_name;
+                var lname  = data[0].last_name;
+                var email  = data[0].email;
+                var mobno  = data[0].mob_no;
+                var pass   = data[0].password;
+                var gender = data[0].gender;
+            }else{ 
+                var fname  = "" ;
+                var lname  = "" ;
+                var email  = "" ;
+                var mobno  = "" ;
+                var pass = "" ;
+                var gender = "" ;
+            } %>
+
                 <div class="form-group">
                     <label for="first_name" class="col-md-3 control-label">First Name</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                        <input type="text" class="form-control" name="first_name" value="<%= fname %>" placeholder="First Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="last_name" class="col-md-3 control-label">Last Name</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                        <input type="text" class="form-control" name="last_name" value="<%= lname %>" placeholder="Last Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="mob_no" class="col-md-3 control-label">Mobile Number</label>
                     <div class="col-md-9">
-                        <input type="number" class="form-control" name="mob_no" maxlength="10" placeholder="Mobile Number">
+                        <input type="number" class="form-control" name="mob_no" maxlength="10" value="<%= mobno %>" placeholder="Mobile Number">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="col-md-3 control-label">Email</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="email" placeholder="Email">
+                        <input type="text" value="<%= email %>" class="form-control" name="email" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password" class="col-md-3 control-label">Password</label>
                     <div class="col-md-9">
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <input type="password" autocomplete="off" value="<%= pass %>"  class="form-control" name="password" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Gender:</label>
                     <div class="col-sm-6">
                         <label class="radio-inline">
+                        <% if (data.length > 0) { %>
+                        <input type="radio" name="gender" checked id="gender1" value="male">Male
+                        <% } else { %>
                         <input type="radio" name="gender" id="gender1" value="male">Male
+                        <% } %>
                         </label>
                         <label class="radio-inline">
+                         <% if (data.length > 0) { %>
+                        <input type="radio" name="gender" checked id="gender2" value="female">Female
+                        <% } else { %>
                         <input type="radio" name="gender" id="gender2" value="female">Female
+                        <% } %>
                         </label>
                     </div>
                 </div>
                 <div class="form-group">            
                     <div class="col-md-offset-3 col-md-9">
-                        <button id="btn-addfriend" type="submit" class="btn btn-success"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                        <% if (hdn_id) {
+                        var word = "Update" %>
+                            <input type="hidden" name="hdn_id" id="hdn_id" value="<%= hdn_id %>">
+                        <% }else{ var word = "Add" } %>
+                        
+                        <button id="btn-addfriend" type="submit" class="btn btn-success"><i class="icon-hand-right"></i> <%= word %></button>
                     </div>
                 </div> 
 		    </form>

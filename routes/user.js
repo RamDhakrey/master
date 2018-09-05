@@ -195,6 +195,7 @@ exports.login = function(req, res){
     res.redirect("/home/login");
     return;
     }
+    var message = '';
 
     var sql="SELECT * FROM `users`";
        db.query(sql, function(err, results){
@@ -204,7 +205,7 @@ exports.login = function(req, res){
        //console.log(results);
        
        
-       res.render('friends.ejs', {data:results});   
+       res.render('friends.ejs', {data:results , message:message});   
       
     }); 
        //res.render('friends.ejs');   

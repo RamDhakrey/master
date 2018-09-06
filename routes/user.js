@@ -39,12 +39,14 @@ exports.login = function(req, res){
        var lname= post.last_name;
        var mob= post.mob_no;
        var gender= post.gender;
-
-       //var user_id =1;
+       
        var sql0 = "SELECT max(user_id) as user_id FROM users";
+            //console.log(sql0);
        var query0 = db.query(sql0, function(err, result0) {
-          user_id = result0[0].user_id +1;
+        //console.log(result0);
           
+          var user_id = result0[0].user_id +1;
+          //console.log(user_id);
           var sql = "INSERT INTO `users`(`first_name`,`last_name`,`mob_no`,`email`, `password`, `gender`, `user_id`) VALUES ('" + fname + "','" + lname + "','" + mob + "','" + email + "','" + pass + "', '"+gender+"','"+user_id+"')";
           //console.log(sql);
           var query = db.query(sql, function(err, result) {
@@ -52,7 +54,10 @@ exports.login = function(req, res){
           message = "Succesfully! Your account has been created.";
           res.render('signup.ejs',{message: message});
        });
+         
        });
+
+       
   
     } else {
        res.render('signup');
@@ -71,9 +76,8 @@ exports.login = function(req, res){
         res.redirect("/home/login");
         return;
         }
-        //console.log(req.files.image_uploaded);
         var file = req.files.image_uploaded;
-        if(!file)
+        if(!req.file)
         return res.status(400).send('No files were uploaded.');
         var image_name = file.name;
         if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
@@ -141,7 +145,8 @@ exports.login = function(req, res){
  
     var user =  req.session.user,
     userId = req.session.userId;
-    //first_name = user.first_name;
+   // var first_name = user.first_name;
+   // console.log(user);
     
     if(userId == null){
     res.redirect("/home/login");
@@ -176,4 +181,33 @@ exports.login = function(req, res){
     //console.log('fffff');
     res.redirect("/home/login");
     
+   };
+
+   /****swati*****/
+
+    exports.friendlist = function(req, res, next){
+ 
+    var user       =  req.session.user,
+        userId     = req.session.userId;
+         // var first_name = user.first_name;
+   // console.log(user);
+    if(userId == null){
+    res.redirect("/home/login");
+    return;
+    }
+    var message = '';
+
+    var sql="SELECT * FROM `users`";
+       db.query(sql, function(err, results){
+      
+       
+       //var datafr = JSON.stringify(results);
+       //console.log(results);
+       
+       
+       res.render('friends.ejs', {data:results , message:message});   
+      
+    }); 
+       //res.render('friends.ejs');   
+      
    };

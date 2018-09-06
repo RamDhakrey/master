@@ -1,0 +1,44 @@
+<html lang="en">
+<%- include header %>
+    
+<div class="container">
+<a href='/home/addfriend' class="btn btn-warning btn-large pull-right" data-toggle="tooltip" title="Add"><span class="glyphicon glyphicon-plus"></span></a>
+  <h2>Friends List</h2> 
+  <div class="table-responsive">
+    <% if (message.length > 0) { %>
+      <div class="alert alert-success col-sm-12"><%= message %></div>
+    <% } %>         
+  <table class="table table-hover table-bordered">
+    <thead style="color:#fff; background-color:#163817;">
+      <tr>
+        <th>Sl.no.</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Gender</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% for(var i=1; i < data.length; i++) { %>
+      <tr>
+        <td><%= i %></td>
+        <td><%= data[i].first_name %></td>
+        <td><%= data[i].last_name %></td>
+        <td><%= data[i].email %></td>
+        <td><%= data[i].mob_no %></td>
+        <td><%= data[i].gender %></td>
+        <td class="center">
+        <a href='/home/addfriend/<%= data[i].id %>' class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
+
+        <a href='/home/removefriend/<%= data[i].id %>' class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"></span></a>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<%- include footer %>

@@ -6,7 +6,7 @@
     //max-width: 340px; // orginal twitter width: 290px;
 }
 .twPc-bg {
-    background-position: 0 40%;
+    background-position: 0 50%;
     background-size: 100% auto;
     border-bottom: 1px solid #e1e8ed;
     border-radius: 4px 4px 0 0;
@@ -92,7 +92,7 @@ ul.twPc-Arrange {
 
 .image-icon{
   position: absolute;
-  left: 164px;
+  left: 190px;
   top: 405px;
 }
 img{

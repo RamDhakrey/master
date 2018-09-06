@@ -19,10 +19,10 @@
     <div class="twPc-button">
             
           <div>
-            <label for="image-icon-new">
+            <label for="image-icon">
               <img src="/static/images/image-icon.png" style="height: 68px;" />
-            </label>
-             <button style="display:none" data-toggle="modal" data-target="#myModal" id="image-icon-new" class="image-icon-cover"></button>
+            </lable>
+             <button style="display: none" data-toggle="modal" data-target="#myModal" id="image-icon" img-type="cover-img"></button>
           </div>
             
             <!-- Twitter Button -->   
@@ -41,7 +41,7 @@
       <label for="image-icon">
         <img src="/static/images/image-icon.png" style="height: 25px;" />
       </label>  
-      <button style="display:none" data-toggle="modal" data-target="#myModal" id="image-icon" class="image-icon-profile"></button>
+      <button style="display: none" data-toggle="modal" data-target="#myModal" id="image-icon" img-type="profile-img"></button>
   
     </div>      
     <% }else{ %>
@@ -58,7 +58,7 @@
       <label for="image-icon">
         <img src="/static/images/image-icon.png" style="height: 25px;" />
       </label> 
-      <button style="display:none" data-toggle="modal" data-target="#myModal" id="image-icon" class="image-icon-profile"></button>
+      <button style="display: none" data-toggle="modal" data-target="#myModal" id="image-icon" img-type="profile-img"></button>
     </div> 
     <% } %>
     
@@ -81,7 +81,7 @@
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content-->/home/dashboard
+      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -108,15 +108,9 @@
   
 </div>
 <script type="text/javascript">
-  $('.image-icon-profile').on('click',function(){
-    $('#image_type_input').val('profile-img');
-    console.log('p');
-  });
-</script>
-<script type="text/javascript">
-  $('.image-icon-cover').on('click',function(){
-    $('#image_type_input').val('cover-img');
-    console.log('c');
+  $('#image-icon').on('click',function(){
+    var img_type = $(this).attr('img-type');
+    $('#image_type_input').val(img_type);
   });
 </script>
 

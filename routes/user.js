@@ -69,7 +69,7 @@ exports.login = function(req, res){
     if(req.method == "POST"){
         var post = req.body;
         var user =  req.session.user,
-        userId = req.session.userId;
+        userId = req.session.userId,
         first_name = user.first_name;
         var image_field = post.image_field;
         if(userId == null){
@@ -77,7 +77,8 @@ exports.login = function(req, res){
         return;
         }
         var file = req.files.image_uploaded;
-        if(!req.file)
+        console.log(file);
+        if(!file)
         return res.status(400).send('No files were uploaded.');
         var image_name = file.name;
         if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){

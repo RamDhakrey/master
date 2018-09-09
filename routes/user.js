@@ -1,3 +1,5 @@
+var Memcached = require('memcached');
+var memcached = new Memcached('127.0.0.1:8080', {retries:10,retry:10000,remove:true});
 
 var fs = require('fs');
 exports.login = function(req, res){
@@ -77,7 +79,7 @@ exports.login = function(req, res){
         return;
         }
         var file = req.files.image_uploaded;
-        console.log(file);
+        //console.log(file);
         if(!file)
         return res.status(400).send('No files were uploaded.');
         var image_name = file.name;
@@ -191,24 +193,50 @@ exports.login = function(req, res){
     var user       =  req.session.user,
         userId     = req.session.userId;
          // var first_name = user.first_name;
-   // console.log(user);
+    //console.log(user);
     if(userId == null){
     res.redirect("/home/login");
     return;
     }
     var message = '';
+    
+    memcached.gets('users', function (err, value) {
+      console.log('fff');
+      if( !err ){
+        console.log('ffhfh');
+        if(value == undefined){
+          console.log('value from database');
+          var sql="SELECT * FROM `users`";
+          db.query(sql, function(err, results){
+            memcached.set('users',results, 100, function (err) { 
+              console.log(err);
+            }); 
+          res.render('friends.ejs', {data:results , message:message});   
+      
+      }); 
+          
+        }else{
+          console.log(value.users);
+          console.log(value.cas);
+          console.log('value from memcache'); 
+          res.render('friends.ejs', {data:value.users , message:message});  
+          //{ my: "Special", variable: 42 }
+          // ... do something ...
+        }
+      }
+    
+    });
 
     var sql="SELECT * FROM `users`";
-       db.query(sql, function(err, results){
-      
-       
-       //var datafr = JSON.stringify(results);
-       //console.log(results);
-       
-       
-       res.render('friends.ejs', {data:results , message:message});   
-      
-    }); 
+    db.query(sql, function(err, results){
+      memcached.set('users',results, 100, function (err) { 
+        console.log(err);
+      }); 
+    res.render('friends.ejs', {data:results , message:message});   
+
+}); 
+
+    
        //res.render('friends.ejs');   
       
    };
